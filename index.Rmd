@@ -14,6 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 suppressPackageStartupMessages({
 library(scales)
 library(readr)  
+library(cli)
 })
 
 f_in_list <- Sys.glob('./pal_*.txt')
@@ -22,10 +23,14 @@ names(f_in_list) <- gsub(x=basename(f_in_list), pattern = '\\.txt', replacement 
 pal_list <- lapply(f_in_list, readr::read_lines)
 ```
 
-
-```{r echo=FALSE}
+```{r echo=FALSE} 
+cli::cli_alert_info(c("There are ", length(pal_list), " palettes."))
+cli::cli_ol(names(f_in_list))
+```
+```{r echo=FALSE} 
 for (pal in names(pal_list)) {
   print(pal)
+  print(pal_list[[pal]])
   scales::show_col(pal_list[[pal]])
 }
 ```
