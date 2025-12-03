@@ -1,0 +1,31 @@
+---
+title: "index"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r echo=FALSE}
+suppressPackageStartupMessages({
+library(scales)
+library(readr)  
+})
+
+f_in_list <- Sys.glob('./pal_*.txt')
+names(f_in_list) <- gsub(x=basename(f_in_list), pattern = '\\.txt', replacement = '') 
+
+pal_list <- lapply(f_in_list, readr::read_lines)
+```
+
+
+```{r echo=FALSE}
+for (pal in names(pal_list)) {
+  print(pal)
+  scales::show_col(pal_list[[pal]])
+}
+```
