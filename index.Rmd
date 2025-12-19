@@ -33,4 +33,5 @@ for (pal in names(pal_list)) {
   print(pal_list[[pal]])
   scales::show_col(pal_list[[pal]])
 }
+write_rds(pal_list, './pal_list.rds')
 ```
